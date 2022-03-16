@@ -85,7 +85,10 @@ def main(args):
     # Redirect print to both console and log file
     if not args.evaluate:
         sys.stdout = Logger(osp.join(args.logs_dir, 'log.txt'))
-
+#logger用来打印日志
+#
+#
+#
     # Create data loaders
     dataset, num_classes, source_train_loader, query_loader, gallery_loader = \
         get_data(args.data_dir, args.source, args.target, args.height,
@@ -94,7 +97,7 @@ def main(args):
     # Create model
     MaskNet, TaskNet = models.create(args.arch, num_features=args.features, dropout=args.dropout, num_classes=num_classes)
 
-    # Load from checkpoint
+    # Load from checkpoint从检查点开始
     start_epoch = 0
     if args.resume:
         checkpoint = load_checkpoint(args.resume)
@@ -197,7 +200,9 @@ def main(args):
         print('\n * Finished epoch {:3d} \n'.
               format(epoch))
 
-    # Final test
+    # Final test  3.16运行输出了这个！
+    #
+    #
     print('Test with best model:')
     evaluator = Evaluator([MaskNet, TaskNet])
     evaluator.evaluate(query_loader, gallery_loader, dataset.query, dataset.gallery, args.output_feature)
